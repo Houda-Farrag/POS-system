@@ -1,0 +1,118 @@
+:root {
+  --bg-main: #f5f0e8;
+  --brand-primary: #2c3e50;
+  --brand-accent: #b8860b;
+  --card-shadow: 0 10px 28px rgba(44, 62, 80, 0.14);
+  --radius-xl: 16px;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  background-color: var(--bg-main);
+  background-image:
+    radial-gradient(circle at 12% 25%, rgba(255, 255, 255, 0.45) 0%, rgba(245, 240, 232, 0) 40%),
+    radial-gradient(circle at 80% 12%, rgba(44, 62, 80, 0.09) 0%, rgba(245, 240, 232, 0) 38%),
+    linear-gradient(135deg, rgba(184, 134, 11, 0.06), rgba(44, 62, 80, 0.03));
+  color: var(--brand-primary);
+}
+
+#app { min-height: 100vh; }
+.app-shell { max-width: 1200px; margin: 0 auto; padding: 1.2rem; }
+.font-arabic { font-family: "Segoe UI", Tahoma, Arial, sans-serif; }
+.rtl { direction: rtl; text-align: right; }
+.layout-grid { display: grid; grid-template-columns: 250px 1fr; gap: 1rem; }
+
+.topbar, .card, .nav-card {
+  background: #fff;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--card-shadow);
+}
+.topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 1.2rem; margin-bottom: 1rem;
+}
+.topbar h1 { margin: 0; font-size: 1.2rem; }
+.topbar p { margin: 0.25rem 0 0; opacity: 0.8; }
+
+.nav-card { padding: 0.7rem 1rem; display: flex; gap: 0.7rem; margin-bottom: 1rem; }
+.nav-card a { text-decoration: none; color: var(--brand-primary); padding: 0.5rem 0.8rem; border-radius: 10px; }
+.nav-card a.active { background: rgba(184, 134, 11, 0.18); color: var(--brand-accent); font-weight: 700; }
+.sidebar {
+  background: var(--brand-primary);
+  color: #fff;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--card-shadow);
+  padding: 1rem;
+  height: fit-content;
+}
+.sidebar h2 { margin-top: 0; color: #fff; }
+.sidebar .side-nav { background: transparent; box-shadow: none; padding: 0; flex-direction: column; gap: 0.4rem; }
+.sidebar .side-nav a { color: #f9f4ea; }
+.sidebar .side-nav a.active { background: rgba(184, 134, 11, 0.28); color: #fff; }
+
+.card { padding: 1rem; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.chart-card { grid-column: span 3; }
+
+input, button, table {
+  width: 100%;
+  font-family: inherit;
+}
+input {
+  border: 1px solid #e5ddcf;
+  border-radius: 12px;
+  padding: 0.65rem 0.8rem;
+  margin-bottom: 0.6rem;
+}
+.select-input {
+  border: 1px solid #e5ddcf;
+  border-radius: 12px;
+  padding: 0.65rem 0.8rem;
+  margin-bottom: 0.6rem;
+  width: 100%;
+}
+button {
+  border: none;
+  border-radius: 12px;
+  padding: 0.65rem 0.8rem;
+  cursor: pointer;
+}
+.btn-primary { background: var(--brand-primary); color: #fff; }
+.btn-accent { background: var(--brand-accent); color: #fff; width: auto; }
+.login-screen { min-height: 100vh; display: grid; place-items: center; padding: 1rem; }
+.error-text { color: #be123c; margin-bottom: 0.75rem; display: block; }
+
+table { border-collapse: collapse; font-size: 0.93rem; }
+th, td { border-bottom: 1px solid #eee7dc; padding: 0.45rem; text-align: left; }
+.rtl th, .rtl td { text-align: right; }
+
+.chips { display: flex; gap: 0.45rem; flex-wrap: wrap; }
+.chip { width: auto; background: #eef2f7; color: var(--brand-primary); }
+.chip-active { background: rgba(184, 134, 11, 0.22); color: #7a5600; font-weight: 700; }
+.danger-chip { background: #fee2e2; color: #991b1b; }
+.qty-row { display: inline-flex; align-items: center; gap: 0.35rem; }
+.payment-mode { margin-top: 0.8rem; }
+.warn-text { color: #b45309; display: block; margin-top: 0.45rem; }
+.ok-text { color: #166534; display: block; margin: 0.6rem 0; }
+.status { padding: 0.2rem 0.4rem; border-radius: 8px; }
+.status.paid { background: #d1fae5; color: #065f46; }
+.status.partial { background: #fef3c7; color: #92400e; }
+.status.unpaid { background: #fee2e2; color: #991b1b; }
+
+.print-area { display: none; }
+@media print {
+  body * { visibility: hidden; }
+  #print-area, #print-area * { visibility: visible; }
+  #print-area { display: block; position: absolute; inset: 0; background: #fff; color: #000; }
+}
+
+@media (max-width: 900px) {
+  .layout-grid { grid-template-columns: 1fr; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .chart-card { grid-column: auto; }
+  .topbar { flex-direction: column; align-items: flex-start; gap: 0.7rem; }
+  .nav-card { flex-wrap: wrap; }
+}

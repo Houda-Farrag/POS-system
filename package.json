@@ -1,0 +1,58 @@
+{
+  "name": "reactpos",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "electron": "cross-env NODE_ENV=development ELECTRON_START_URL=http://localhost:5173 electron electron/main.cjs",
+    "electron:dev": "concurrently \"npm run dev\" \"wait-on http://localhost:5173 && npm run electron\"",
+    "electron:build": "npm run build && electron-builder",
+    "rebuild:native": "electron-rebuild -f -w better-sqlite3"
+  },
+  "main": "electron/main.cjs",
+  "devDependencies": {
+    "@electron/rebuild": "^4.0.3",
+    "@tailwindcss/vite": "^4.2.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "electron": "^41.1.1",
+    "electron-builder": "^24.13.3",
+    "tailwindcss": "^4.2.2",
+    "typescript": "~6.0.2",
+    "vite": "^8.0.4",
+    "wait-on": "^9.0.4"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^12.8.0",
+    "chart.js": "^4.5.1",
+    "react": "^19.2.4",
+    "react-chartjs-2": "^5.3.1",
+    "react-dom": "^19.2.4",
+    "react-router-dom": "^7.14.0"
+  },
+  "build": {
+    "appId": "com.awladelsaman.reactpos",
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "src/db/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "build"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "electronDownload": {
+  "mirror": "https://npmmirror.com/mirrors/electron/"
+}
+  }
+}
