@@ -46,13 +46,29 @@
       "package.json"
     ],
     "directories": {
+       "output": "dist",
       "buildResources": "build"
     },
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "certificateFile": null,
+      "certificatePassword": null
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": null,
+      "uninstallerIcon": null,
+      "installerHeaderIcon": null
     },
     "electronDownload": {
-  "mirror": "https://npmmirror.com/mirrors/electron/"
-}
+      "mirror": "https://npmmirror.com/mirrors/electron/"
+    },
+    "extraResources": [
+      {
+        "from": "src/db/schema.sql",
+        "to": "src/db/schema.sql"
+      }
+    ]
   }
 }

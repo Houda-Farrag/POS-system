@@ -50,6 +50,20 @@ export function Layout({ children, user, arabicMode, setArabicMode, onLogout, pe
             {can("invoices:read") && <NavLink to="/invoices">{arabicMode ? "الفواتير" : "Invoices"}</NavLink>}
             {can("invoices:read") && <NavLink to="/dashboard">{arabicMode ? "لوحة المالك" : "Owner Dashboard"}</NavLink>}
             
+            {/* Phase 2: Purchases Module */}
+            {can("purchases:read") && (
+              <>
+                <hr style={{ opacity: 0.3, margin: "10px 0" }} />
+                <p style={{ fontSize: "11px", opacity: 0.6, paddingLeft: "8px", margin: "5px 0" }}>
+                  {arabicMode ? "المشتريات" : "Purchases"}
+                </p>
+                <NavLink to="/suppliers">{arabicMode ? "الموردون" : "Suppliers"}</NavLink>
+                <NavLink to="/purchase-orders">{arabicMode ? "أوامر الشراء" : "Purchase Orders"}</NavLink>
+                <NavLink to="/goods-receiving">{arabicMode ? "استقبال البضائع" : "Goods Receiving"}</NavLink>
+                <NavLink to="/supplier-payments">{arabicMode ? "دفعات الموردين" : "Supplier Payments"}</NavLink>
+              </>
+            )}
+            
             {/* Admin only sections */}
             {(can("users:read") || can("audit:read")) && (
               <>
@@ -91,7 +105,7 @@ export function Layout({ children, user, arabicMode, setArabicMode, onLogout, pe
               <p>{arabicMode ? "مواد البناء - المبيعات والمخزون" : "Building Materials - Sales & Inventory"}</p>
             </div>
           </header>
-          <main>{children}</main>
+          <main className="main-content">{children}</main>
           <section id="print-area" className="print-area">
             <div>{arabicMode ? "منطقة الطباعة" : "Print Area"}</div>
           </section>

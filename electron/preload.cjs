@@ -45,4 +45,33 @@ contextBridge.exposeInMainWorld("electronAPI", {
 
   // Data Export
   exportData: () => ipcRenderer.sendSync("data:export:sync"),
+
+  // ========== PHASE 2: PURCHASES MODULE ==========
+
+  // Suppliers
+  invoke: (channel, data) => ipcRenderer.invoke(channel, data),
+  suppliers_list: () => ipcRenderer.sendSync("suppliers:list:sync"),
+  suppliers_create: (data) => ipcRenderer.sendSync("suppliers:create:sync", data),
+  suppliers_update: (data) => ipcRenderer.sendSync("suppliers:update:sync", data),
+  suppliers_delete: (data) => ipcRenderer.sendSync("suppliers:delete:sync", data),
+
+  // Purchase Orders
+  purchase_orders_list: () => ipcRenderer.sendSync("purchase-orders:list:sync"),
+  purchase_orders_create: (data) => ipcRenderer.sendSync("purchase-orders:create:sync", data),
+  purchase_orders_update: (data) => ipcRenderer.sendSync("purchase-orders:update:sync", data),
+  purchase_orders_get: (poId) => ipcRenderer.sendSync("purchase-orders:get:sync", poId),
+
+  // Purchase Items
+  purchase_items_add: (data) => ipcRenderer.sendSync("purchase-items:add:sync", data),
+  purchase_items_list: (poId) => ipcRenderer.sendSync("purchase-items:list:sync", poId),
+  purchase_items_remove: (itemId) => ipcRenderer.sendSync("purchase-items:remove:sync", itemId),
+
+  // Goods Received
+  goods_received_create: (data) => ipcRenderer.sendSync("goods-received:create:sync", data),
+  goods_received_list: (poId) => ipcRenderer.sendSync("goods-received:list:sync", poId),
+
+  // Supplier Payments
+  supplier_payments_create: (data) => ipcRenderer.sendSync("supplier-payments:create:sync", data),
+  supplier_payments_list: (poId) => ipcRenderer.sendSync("supplier-payments:list:sync", poId),
+  supplier_payments_by_supplier: (supplierId) => ipcRenderer.sendSync("supplier-payments:by-supplier:sync", supplierId),
 });
