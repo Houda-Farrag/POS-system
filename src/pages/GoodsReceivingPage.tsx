@@ -437,14 +437,14 @@ export default function GoodsReceivingPage({ arabicMode }: { arabicMode: boolean
     <div className="products-container " style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       
       {/* Header */}
-      {/* <div >
+      <div >
         <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>
           📥 {t('استلام البضائع', 'Goods Receiving')}
         </h1>
         <p style={{ color: '#666' }}>
           {t('استلام البضائع من أوامر الشراء وتحديث المخزون', 'Receive goods from purchase orders and update stock')}
         </p>
-      </div> */}
+      </div>
 
       {error && (
         <div className="error-text" style={{ padding: '0.75rem', backgroundColor: '#fee2e2', borderRadius: '12px', marginBottom: '0' }}>

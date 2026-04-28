@@ -221,7 +221,7 @@ function migrateDatabase() {
 // Replace the seedPath reading with embedded schema
 function getSchemaSQL() {
   return `
-  CREATE TABLE IF NOT EXISTS products (
+ CREATE TABLE IF NOT EXISTS products (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
   unit TEXT,
@@ -476,9 +476,9 @@ INSERT OR IGNORE INTO products (id, name, unit, price, stock) VALUES
   (3, 'صلب 12mm', '6m length', 12.00, 150);
 
 -- Sample suppliers for Phase 2
-INSERT OR IGNORE INTO suppliers (id, name, contact_person, email, phone, city, payment_terms) VALUES
-  (1, 'Supplier A', 'Ahmed', 'ahmed@supplier.com', '01234567890', 'Cairo', '30 days'),
-  (2, 'Supplier B', 'Ali', 'ali@supplier.com', '01234567891', 'Giza', '15 days');
+-- INSERT OR IGNORE INTO suppliers (id, name, contact_person, email, phone, city, payment_terms) VALUES
+--   (1, 'Supplier A', 'Ahmed', 'ahmed@supplier.com', '01234567890', 'Cairo', '30 days'),
+--   (2, 'Supplier B', 'Ali', 'ali@supplier.com', '01234567891', 'Giza', '15 days');
 
   `;
 }
@@ -1159,6 +1159,28 @@ const dbApi = {
       return db.prepare("SELECT * FROM invoices ORDER BY id DESC").all();
     } catch (error) {
       console.error("Get invoices error:", error);
+      return [];
+    }
+  },
+
+  getInvoiceItems(invoiceId) {
+    try {
+      return db.prepare(
+        "SELECT * FROM invoice_items WHERE invoice_id = ?"
+      ).all(invoiceId);
+    } catch (error) {
+      console.error("Get invoice items error:", error);
+      return [];
+    }
+  },
+
+  getInvoicePayments(invoiceId) {
+    try {
+      return db.prepare(
+        "SELECT * FROM payments WHERE invoice_id = ? ORDER BY date DESC"
+      ).all(invoiceId);
+    } catch (error) {
+      console.error("Get invoice payments error:", error);
       return [];
     }
   },

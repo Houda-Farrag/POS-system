@@ -28,6 +28,8 @@ contextBridge.exposeInMainWorld("electronAPI", {
   // Invoices
   createInvoice: (payload) => ipcRenderer.sendSync("invoices:create:sync", payload),
   getInvoices: () => ipcRenderer.sendSync("invoices:get:sync"),
+  getInvoiceItems: (invoiceId) => ipcRenderer.sendSync("invoices:items:get:sync", invoiceId),
+  getInvoicePayments: (invoiceId) => ipcRenderer.sendSync("invoices:payments:get:sync", invoiceId),
 
   // Reservations
   createReservation: (payload) => ipcRenderer.sendSync("reservations:create:sync", payload),

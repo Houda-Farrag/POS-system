@@ -253,6 +253,6 @@ INSERT OR IGNORE INTO products (id, name, unit, price, stock) VALUES
   (3, 'صلب 12mm', '6m length', 12.00, 150);
 
 -- Sample suppliers for Phase 2
-INSERT OR IGNORE INTO suppliers (id, name, contact_person, email, phone, city, payment_terms) VALUES
-  (1, 'Supplier A', 'Ahmed', 'ahmed@supplier.com', '01234567890', 'Cairo', '30 days'),
-  (2, 'Supplier B', 'Ali', 'ali@supplier.com', '01234567891', 'Giza', '15 days');
+-- INSERT OR IGNORE INTO suppliers (id, name, contact_person, email, phone, city, payment_terms) VALUES
+--   (1, 'Supplier A', 'Ahmed', 'ahmed@supplier.com', '01234567890', 'Cairo', '30 days'),
+--   (2, 'Supplier B', 'Ali', 'ali@supplier.com', '01234567891', 'Giza', '15 days');

@@ -336,4 +336,26 @@ ipcMain.on("supplier-payments:by-supplier:sync", (event, supplierId) => {
   event.returnValue = dbApi.supplier_payments_by_supplier(supplierId);
 });
 
+
+// ===== INVOICE ITEMS & PAYMENTS =====
+ipcMain.on("invoices:items:get:sync", (event, invoiceId) => {
+  try {
+    const items = dbApi.getInvoiceItems(invoiceId);
+    console.log(`Fetched ${items.length} items for invoice ${invoiceId}`);
+    event.returnValue = items;
+  } catch (error) {
+    console.error("Error getting invoice items:", error);
+    event.returnValue = [];
+  }
+});
+
+ipcMain.on("invoices:payments:get:sync", (event, invoiceId) => {
+  try {
+    const payments = dbApi.getInvoicePayments(invoiceId);
+    event.returnValue = payments;
+  } catch (error) {
+    console.error("Error getting invoice payments:", error);
+    event.returnValue = [];
+  }
+});
 // ========== END PHASE 2: PURCHASES MODULE HANDLERS ==========

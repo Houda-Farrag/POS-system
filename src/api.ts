@@ -7,6 +7,7 @@ import type {
   UserCreateRequest,
   Backup,
   Payment,
+  InvoiceItem,
 } from "./types";
 
 declare global {
@@ -61,6 +62,8 @@ declare global {
 
       updateInvoice: (invoiceId: number, updates: Partial<Invoice>) => Invoice;
       deleteInvoice: (invoiceId: number) => { ok: boolean };
+      getInvoiceItems: (invoiceId: number) => InvoiceItem[];
+      getInvoicePayments: (invoiceId: number) => Payment[];
 
       // Payments
       getPaymentsByInvoice: (invoiceId: number) => Payment[];
@@ -102,25 +105,50 @@ declare global {
 
       // Phase 2: Purchases Module
       suppliers_list: () => any[];
-      suppliers_create: (data: any) => { ok: boolean; supplier?: any; error?: string };
+      suppliers_create: (data: any) => {
+        ok: boolean;
+        supplier?: any;
+        error?: string;
+      };
       suppliers_update: (data: any) => {
-          [x: string]: any; ok: boolean; error?: string 
-};
+        [x: string]: any;
+        ok: boolean;
+        error?: string;
+      };
       suppliers_delete: (data: any) => { ok: boolean; error?: string };
 
       purchase_orders_list: () => any[];
-      purchase_orders_create: (data: any) => { ok: boolean; po?: any; error?: string };
+      purchase_orders_create: (data: any) => {
+        ok: boolean;
+        po?: any;
+        error?: string;
+      };
       purchase_orders_update: (data: any) => { ok: boolean; error?: string };
       purchase_orders_get: (poId: number) => any;
 
-      purchase_items_add: (data: any) => { ok: boolean; item?: any; error?: string };
+      purchase_items_add: (data: any) => {
+        ok: boolean;
+        item?: any;
+        error?: string;
+      };
       purchase_items_list: (poId: number) => any[];
-      purchase_items_remove: (itemId: number) => { ok: boolean; error?: string };
+      purchase_items_remove: (itemId: number) => {
+        ok: boolean;
+        error?: string;
+      };
 
-      goods_received_create: (data: any) => { ok: boolean; receipt?: any; error?: string };
+      goods_received_create: (data: any) => {
+        ok: boolean;
+        receipt?: any;
+        error?: string;
+      };
       goods_received_list: (poId: number) => any[];
 
-      supplier_payments_create: (data: any) => { ok: boolean; payment?: any; error?: string };
+      supplier_payments_create: (data: any) => {
+        ok: boolean;
+        payment?: any;
+        error?: string;
+      };
       supplier_payments_list: (poId: number) => any[];
       supplier_payments_by_supplier: (supplierId: number) => any[];
     };
@@ -173,6 +201,16 @@ export const api = {
   }) => window.electronAPI?.createInvoice(payload),
   getInvoices: () => window.electronAPI?.getInvoices() ?? [],
 
+  getInvoiceItems: (invoiceId: number) =>
+    window.electronAPI?.getInvoiceItems(invoiceId) ?? [],
+  getInvoicePayments: (invoiceId: number) =>
+    window.electronAPI?.getInvoicePayments(invoiceId) ?? [],
+
+  updateInvoice: (invoiceId: number, updates: Partial<Invoice>) =>
+    window.electronAPI?.updateInvoice(invoiceId, updates),
+  deleteInvoice: (invoiceId: number) =>
+    window.electronAPI?.deleteInvoice(invoiceId),
+
   // Reservations
   createReservation: (payload: {
     customerName: string;
@@ -207,7 +245,7 @@ export const api = {
   // Suppliers
   suppliers: {
     list: (): Supplier[] => window.electronAPI?.suppliers_list?.() ?? [],
-    create: (data: Omit<Supplier, "id" | "is_active">) => 
+    create: (data: Omit<Supplier, "id" | "is_active">) =>
       window.electronAPI?.suppliers_create?.(data) ?? { ok: false },
     update: (id: number, data: Partial<Supplier>) =>
       window.electronAPI?.suppliers_update?.({ id, ...data }) ?? { ok: false },
@@ -217,11 +255,17 @@ export const api = {
 
   // Purchase Orders
   purchaseOrders: {
-    list: (): PurchaseOrder[] => window.electronAPI?.purchase_orders_list?.() ?? [],
-    create: (data: { supplier_id: number; expected_delivery?: string; notes?: string }) =>
-      window.electronAPI?.purchase_orders_create?.(data) ?? { ok: false },
+    list: (): PurchaseOrder[] =>
+      window.electronAPI?.purchase_orders_list?.() ?? [],
+    create: (data: {
+      supplier_id: number;
+      expected_delivery?: string;
+      notes?: string;
+    }) => window.electronAPI?.purchase_orders_create?.(data) ?? { ok: false },
     update: (id: number, data: Partial<PurchaseOrder>) =>
-      window.electronAPI?.purchase_orders_update?.({ id, ...data }) ?? { ok: false },
+      window.electronAPI?.purchase_orders_update?.({ id, ...data }) ?? {
+        ok: false,
+      },
     get: (poId: number) =>
       window.electronAPI?.purchase_orders_get?.(poId) ?? null,
   },
